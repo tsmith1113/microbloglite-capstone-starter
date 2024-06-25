@@ -3,19 +3,24 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is logged in and redirect if not
     if (!isLoggedIn()) {
-        window.location.href = "login.html";
+        window.location.href = "landing.html";
     }
 
     // Function to fetch and display profile information
     function fetchProfile() {
-        const loginData = loginData();
+        const loginData = getLoginData();
 
-        fetch(`${apiBaseURL}/api/users/${loginData.username}`, {
+        fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/users/${loginData.username}`, {
             headers: {
                 'Authorization': `Bearer ${loginData.token}`
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if(!response.ok){
+                throw new Error('Failed to fetch profile');
+            }
+            return response.json();
+        })
         .then(user => {
             const profileContainer = document.getElementById('profileInfo');
             profileContainer.innerHTML = `
@@ -36,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
-            logout();
+            logout(); // Ensure logout function is correctly implemented
         });
     }
 });

@@ -5,13 +5,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is logged in and redirect if not
     if (!isLoggedIn()) {
-        window.location.href = "login.html";
+        window.location.href = "landing.html";
+        return; // Stop further execution
     }
-
     // Function to fetch and display posts
     function fetchPosts() {
         fetch('http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts')
-            .then(response => response.json())
+            .then(response =>{
+                if(!response.ok){
+                    throw new Error('Failed to fetch posts');
+                }
+            return response.json();
+        })
             .then(posts => {
                 const postsContainer = document.getElementById('posts');
                 postsContainer.innerHTML = ''; // Clear existing posts
@@ -49,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const postContent = document.getElementById('postContent').value;
             const loginData = getLoginData();
 
-            fetch(`${apiBaseURL}/api/posts`, {
+            fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,7 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({ content: postContent }),
             })
-            .then(response => response.json())
+            .then(response => {
+                if(!response.ok){
+                    throw new Error('Failed to create post');
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('Post created:', data);
                 document.getElementById('postContent').value = '';
