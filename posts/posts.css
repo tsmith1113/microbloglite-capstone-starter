@@ -1,1 +1,96 @@
 /* Posts Page CSS */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #444;
+  }
+  
+  /* Container for posts */
+  #posts {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  #posts div {
+    border-bottom: 1px solid #eee;
+    padding: 10px;
+  }
+  
+  #posts div:last-child {
+    border-bottom: none;
+  }
+  
+  #posts p {
+    margin: 5px 0;
+  }
+  
+  /* Links and buttons */
+  a {
+    display: block;
+    text-align: center;
+    margin: 20px auto;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  button {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #0066cc;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #005bb5;
+  }
+  
+  /* Form for creating posts */
+  form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+  }
+  
+  form button {
+    width: auto;
+    padding: 10px 20px;
+  }
