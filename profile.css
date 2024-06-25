@@ -1,0 +1,21 @@
+/* Landing Page CSS */
+main {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin: 20px 0;
+    color: #007BFF;
+}
+
+button {
+    width: 100%;
+}

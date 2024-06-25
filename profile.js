@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fetch and display profile information
     function fetchProfile() {
-        const loginData = getLoginData();
+        const loginData = loginData();
 
         fetch(`${apiBaseURL}/api/users/${loginData.username}`, {
             headers: {
