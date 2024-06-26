@@ -47,6 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <p>${post.text}</p>
             <p>username: ${post.username}</p>
             <p>Timestamp: ${formatcreatedAt(post.createdAt)}</p>
+            <div class="post-actions">
+            <button class="btn btn-outline-primary like-btn">Like</button>
+            <button class="btn btn-outline-danger delete-btn">Delete</button>
         `;
         return postElement;
     }
@@ -93,6 +96,60 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+        // Event listener for delete and like buttons using event delegation
+    document.addEventListener('click', event => {
+        if (event.target.classList.contains('delete-btn')) {
+            const postId = event.target.dataset.postId;
+            const loginData = getLoginData();
+
+            fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts/${postId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${loginData.token}`
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete post');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Post deleted:', data);
+                // Optionally remove the post element from the DOM
+                fetchPosts(); // Refresh the list of posts
+            })
+            .catch(error => {
+                console.error('Error deleting post:', error);
+            });
+        } else if (event.target.classList.contains('like-btn')) {
+            const postId = event.target.dataset.postId;
+            const isLiked = event.target.classList.toggle('liked'); // Toggle the 'liked' class
+            const loginData = getLoginData();
+
+            const options = {
+                method: isLiked ? 'POST' : 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${loginData.token}`
+                },
+            };
+
+            fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts/${postId}/like`, options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to ${isLiked ? 'like' : 'unlike'} post`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(`Post ${isLiked ? 'liked' : 'unliked'} successfully:`, data);
+                fetchPosts(); // Refresh the list of posts
+            })
+            .catch(error => {
+                console.error(`Error ${isLiked ? 'liking' : 'unliking'} post:`, error);
+            });
+        }
+    });
 });
 // Event listener for logout button
     document.getElementById('logoutButton').addEventListener('click',() =>{
