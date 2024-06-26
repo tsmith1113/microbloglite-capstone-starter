@@ -9,7 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fetch and display posts
     function fetchPosts() {
-        fetch('http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts')
+        const loginData = getLoginData();
+        const options = 
+        {
+            method: "GET",
+            headers: 
+                {
+                    Authorization: `Bearer ${loginData.token}`
+            }
+            
+        };    
+
+        fetch('http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts', options)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
@@ -33,18 +44,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function createPostElement(post) {
         const postElement = document.createElement('div');
         postElement.innerHTML = `
-            <p>${post.content}</p>
-            <p>Author: ${post.author}</p>
-            <p>Timestamp: ${new Date(post.timestamp).toLocaleString()}</p>
+            <p>${post.text}</p>
+            <p>username: ${post.username}</p>
+            <p>Timestamp: ${formatcreatedAt(post.createdAt)}</p>
         `;
         return postElement;
+    }
+    //Function to format createdAt
+    function formatcreatedAt(createdAt){
+        const date = new Date(createdAt);
+        return date.toLocaleString(); 
     }
 
     // Fetch posts when the page loads
     fetchPosts();
 
-    // Event listener for logout button
-    document.getElementById('logoutButton').addEventListener('click', logout);
+    
 
     // Event listener for post form submission
     const postForm = document.getElementById('postForm');
@@ -60,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${loginData.token}`
                 },
-                body: JSON.stringify({ content: postContent }),
+                body: JSON.stringify({ text: postContent }),
             })
             .then(response => {
                 if (!response.ok) {
@@ -78,29 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    // Function to get all users via fetch
-    function getAllUsers() {
-        const loginData = getLoginData();
-        const options = {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${loginData.token}`,
-            },
-        };
-
-        fetch('http://microbloglite.us-east-2.elasticbeanstalk.com/api/users', options)
-            .then(response => response.json())
-            .then(users => {
-                console.log('Users:', users);
-                // Do something with the users array if needed
-            })
-            .catch(error => {
-                console.error('Error fetching users:', error);
-            });
-    }
-
-    // Call function to get all users
-    getAllUsers();
 });
-
+// Event listener for logout button
+    document.getElementById('logoutButton').addEventListener('click',() =>{
+        logout();
+    window.location.href ="landing.html"; // Redirect to landing page after logout
+    });

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is logged in and redirect if not
     if (!isLoggedIn()) {
         window.location.href = "landing.html";
+        return; // Stop further execution
     }
 
     // Function to fetch and display profile information
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         })
         .then(response => {
-            if(!response.ok){
+            if (!response.ok) {
                 throw new Error('Failed to fetch profile');
             }
             return response.json();
@@ -25,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const profileContainer = document.getElementById('profileInfo');
             profileContainer.innerHTML = `
                 <p><strong>Username:</strong> ${user.username}</p>
-                <p><strong>Email:</strong> ${user.email}</p>
                 <p><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             `;
         })
@@ -38,10 +38,5 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProfile();
 
     // Event listener for logout button
-    const logoutButton = document.getElementById('logoutButton');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', () => {
-            logout(); // Ensure logout function is correctly implemented
-        });
-    }
+    document.getElementById('logoutButton').addEventListener('click', logout);
 });
