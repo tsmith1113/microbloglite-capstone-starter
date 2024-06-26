@@ -23,7 +23,7 @@
     <!-- Run BEFORE page is finished loading (before window.onload): -->
     <script src="../auth.js"></script>
     <script>
-        if (isLoggedIn() === false) window.location.replace("landing.html");
+        if (isLoggedIn() === false) window.location.replace("/landing.html");
     </script>
 </head>
 <body>
@@ -32,7 +32,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <h1>Profile Page</h1>
             <div>
-                <a href="posts.html" class="btn btn-primary">Posts</a>
+                <a href="posts/posts.html" class="btn btn-primary">Posts</a>
                 <button id="logoutButton" class="btn btn-secondary">Logout</button>
             </div>
         </div>
