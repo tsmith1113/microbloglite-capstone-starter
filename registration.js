@@ -8,14 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
             // Prepare registration data
             const registrationData = {
                 username: username,
-                email: email,
-                password: password,
+                password: password
             };
 
             // Send registration request to backend

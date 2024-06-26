@@ -40,15 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to create a DOM element for a post
 function createPostElement(post) {
     const postElement = document.createElement('div');
+    postElement.classList.add('post-card'); // Add post-card class
     postElement.innerHTML = `
-        <p>${post.text}</p>
-        <p>username: ${post.username}</p>
-        <p>postId: ${post.postId}</p>
+        <p>username: ${post.username}</p> 
+        <p>post: ${post.text}</p>
         <p>Timestamp: ${formatcreatedAt(post.createdAt)}</p>
-        <p>id: ${post.id}</p>
-        <div class="post-actions">
-            <button class="btn btn-outline-primary like-btn ${post.likedByCurrentUser ? 'liked' : ''}" data-post-id="${post.postId}">Like</button>
-        </div>
+       
     `;
     return postElement;
 }
@@ -95,48 +92,13 @@ function createPostElement(post) {
             });
         });
     }
-// Event listener for delete and like buttons using event delegation
-document.addEventListener('click', event => {
-    if (event.target.classList.contains('like-btn')) {
-        const likeButton = event.target;
-        const postId = likeButton.dataset.postId;
-        const isLiked = likeButton.classList.toggle('liked'); // Toggle the 'liked' class
-        const loginData = getLoginData();
-
-        const options = {
-            method: isLiked ? 'POST' : 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${loginData.token}`
-            },
-        };
-
-        fetch(`http://microbloglite.us-east-2.elasticbeanstalk.com/api/posts/like/${postId}`, options)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`${isLiked ? 'Like' : 'Unlike'} action failed`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(`Post ${isLiked ? 'liked' : 'unliked'} successfully:`, data);
-            // Optionally, update the 'likedByCurrentUser' status of the post in your data
-            // Example: post.likedByCurrentUser = isLiked;
-            fetchPosts(); // Refresh the list of posts
-        })
-        .catch(error => {
-            console.error(`Error ${isLiked ? 'liking' : 'unliking'} post:`, error);
-            // Optionally, revert the 'liked' class toggle if there's an error
-            // Example: likeButton.classList.toggle('liked');
-        });
-    }
-});
 
     // Event listener for logout button
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
             logout();
-            window.location.href = "landing.html"; // Redirect to landing page after logout
+            window.location.href = "/landing.html"; // Redirect to landing page after logout
         });
     }
 });
