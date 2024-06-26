@@ -1,1 +1,54 @@
+/* Additional custom styles for profile page */
 
+.profile-container {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    border-radius: 50%;
+    max-width: 100%;
+}
+
+.profile-bio, .profile-social, .profile-stats, .profile-actions, .profile-achievements, .profile-recent-activity, .profile-contact {
+    margin-bottom: 30px;
+}
+
+.profile-social ul {
+    padding-left: 0;
+}
+
+.profile-social ul li {
+    margin-bottom: 10px;
+}
+
+.profile-stats p {
+    margin-bottom: 10px;
+}
+
+.profile-actions button {
+    margin-right: 10px;
+}
+
+.profile-achievements p {
+    margin-bottom: 10px;
+}
+
+.profile-recent-activity ul {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.profile-recent-activity ul li {
+    margin-bottom: 5px;
+}
+
+.profile-contact p {
+    margin-bottom: 10px;
+}
