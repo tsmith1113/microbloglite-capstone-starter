@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if(logoutButton){
         logoutButton.addEventListener('click', () => {
             logout();
-            window.location.href= "/landing.html"; // Redirct to the landing page after the logout button is clicked
         })
     }
 });

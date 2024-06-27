@@ -53,7 +53,7 @@ async function login (loginData) {
         return null;
     }
     window.localStorage.setItem("login-data", JSON.stringify(loginData_1));
-    window.location.assign("/posts"); // redirect
+    window.location.assign("/posts/posts.html"); // redirect
     return loginData_1;
 }
 
@@ -84,8 +84,8 @@ function logout () {
             // We're using `finally()` so that we will continue with the
             // browser side of logging out (below) even if there is an 
             // error with the fetch request above.
-
+            console.log("logging out");
             window.localStorage.removeItem("login-data");  // remove login data from LocalStorage
-            window.location.assign("/");  // redirect back to landing page
+            window.location.assign("/landing.html");  // redirect back to landing page
         });
 }
