@@ -8,11 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const username = document.getElementById('username').value;
+            const fullName = document.getElementById('fullName').value;
             const password = document.getElementById('password').value;
 
             // Prepare registration data
             const registrationData = {
                 username: username,
+                fullName: fullName,
                 password: password
             };
 
@@ -26,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Registration failed');
+                    return response.json().then(error => {
+                        throw new Error(error.message || 'Registration failed');
+                    });
                 }
                 return response.json();
             })
@@ -37,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error registering user:', error);
-                // Optionally, display error message to user
+                // Display error message to user
+                alert(`Registration failed: ${error.message}`);
             });
         });
     }

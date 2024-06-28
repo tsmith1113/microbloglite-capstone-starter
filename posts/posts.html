@@ -42,18 +42,19 @@
             </div>
         </div>
     </header>
-
+    
+    <div class="container mt-9">
+        <select id="sortPosts" class="form-select">
+            <option value="time">Sort by Time</option>
+            <option value="oldest">Sort by Oldest</option>
+            <option value="username">Sort by Username</option>
+        </select>
+    </div>
     <main class="container mt-4">
-        <form id="postForm" class="mb-4">
-            <div class="mb-3">
-                <textarea id="postContent" class="form-control" rows="3" placeholder="What's on your mind?" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Post</button>
-        </form>
-        
         <div id="posts" class="list-group"></div>
          </aside>
     </main>
+    
 
     <footer class="container mt-4">
         <p class="text-center">&copy; 2024 Microblog</p>
